@@ -32,33 +32,45 @@ class Ui(QMainWindow):
     
     theFile = []
 
+    def popUp(self):
+        msg = QMessageBox
+        msg.setWindowTitle("Hint")
+        msg.setText("Penambahan Berhasil")
+        msg.setIcon(QMessageBox.question)
+
 
 
     def insertText(self):
-        global theFile
+        msg = QMessageBox()
+        msg.setWindowTitle("Hint")
+        msg.setText("Korpus Berhasil ditambahkan")
+        msg.setStandardButtons(QMessageBox.Cancel | QMessageBox.Retry |QMessageBox.Ignore )
+        x = msg.exec_()
+        print("ayank")
+        # global theFile
         
-        for y in theFile:
-            with open(y,'r',encoding="utf-8") as f:
-                lines = f.readlines()
-                for x in lines : 
-                    wordList = x.split(' ')
-                    test_list = list(set(wordList))
+        # for y in theFile:
+        #     with open(y,'r',encoding="utf-8") as f:
+        #         lines = f.readlines()
+        #         for x in lines : 
+        #             wordList = x.split(' ')
+        #             test_list = list(set(wordList))
                     
-                    for z in test_list:    
-                        cursor.execute("INSERT INTO daftar_kata (id_daftar_kata,nama_kata) VALUES (%s,%s) " , ('',z))
+        #             for z in test_list:    
+        #                 cursor.execute("INSERT INTO daftar_kata (id_daftar_kata,nama_kata) VALUES (%s,%s) " , ('',z))
                     
-                    cursor.execute("INSERT INTO korpus (id_korpus,konten) VALUES (%s,%s) " , ('',x))
-                    id_korpus = cursor.lastrowid
-                    sentences = sent_tokenize(x)
-                    words = x.count(" ")+1
-                    day = self.dateEdit.date().day()
-                    month = self.dateEdit.date().month()
-                    year = self.dateEdit.date().year()
-                    theDate = year,"-",day,"-",month
-                    result = "".join(str(x) for x in theDate)
-                    cursor.execute("INSERT INTO meta_data (id_meta_data,id_korpus,tanggal,sumber,penerbit,jumlah_kata,jumlah_kalimat,judul,penulis,kategori) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) " , ('',id_korpus,result,self.textEdit_4.toPlainText(),self.textEdit_5.toPlainText(),str(words),len(sentences),self.textEdit_2.toPlainText(),self.textEdit_3.toPlainText(),self.comboBox.currentText()))
-                    db.commit()
-            self.textEdit_6.setText("")
+        #             cursor.execute("INSERT INTO korpus (id_korpus,konten) VALUES (%s,%s) " , ('',x))
+        #             id_korpus = cursor.lastrowid
+        #             sentences = sent_tokenize(x)
+        #             words = x.count(" ")+1
+        #             day = self.dateEdit.date().day()
+        #             month = self.dateEdit.date().month()
+        #             year = self.dateEdit.date().year()
+        #             theDate = year,"-",day,"-",month
+        #             result = "".join(str(x) for x in theDate)
+        #             cursor.execute("INSERT INTO meta_data (id_meta_data,id_korpus,tanggal,sumber,penerbit,jumlah_kata,jumlah_kalimat,judul,penulis,kategori) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) " , ('',id_korpus,result,self.textEdit_4.toPlainText(),self.textEdit_5.toPlainText(),str(words),len(sentences),self.textEdit_2.toPlainText(),self.textEdit_3.toPlainText(),self.comboBox.currentText()))
+        #             db.commit()
+        #     self.textEdit_6.setText("")
         
                  
                 
